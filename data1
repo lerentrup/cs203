@@ -1,0 +1,16 @@
+
+
+public interface FiniteSet {
+    public int cardinality();
+    public boolean isEmptyHuh();
+    public boolean member(int x);
+    public FiniteSet add(int x);
+    public FiniteSet remove(int x);
+    public FiniteSet union(FiniteSet u);
+    public FiniteSet inter(FiniteSet u);
+    public FiniteSet diff(FiniteSet u);
+    public boolean equal(FiniteSet u);
+    public boolean subset(FiniteSet u);
+    @Override
+    public String toString();
+}
