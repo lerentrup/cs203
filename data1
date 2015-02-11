@@ -154,6 +154,9 @@ public interface FiniteSet {
    
    // not sure yet
     public FiniteSet remove(int x) {
+    // should either make a new method that takes in two FiniteSets and loc, but configures a new FiniteSet around 
+    // loc without including it in the new set...
+    // or return union of two FiniteSets, split around loc...
 
     }
 
