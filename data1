@@ -200,4 +200,17 @@ public interface FiniteSet {
     }
            
 }
+  public static void main(String[] args){
+        
+       FiniteSet testSet0;
+       FiniteSet testSet1;
+       
+       testSet0 = new EmptySet();
+       System.out.println(testSet0.cardinality());
+       System.out.println(testSet0.isEmptyHuh());
+       System.out.println(testSet0.member(1));
+       
+       testSet1 = new EmptySet(); 
+       for(int x = 1; x <= 10; x = x + 1)
+           testSet1 = testSet1.add(x);
     
