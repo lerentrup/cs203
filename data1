@@ -40,10 +40,9 @@ public interface FiniteSet {
          return new NonEmptySet(x, this, this);
      }
 
-    // Not so sure about this- should trying to remove something from an empty set throw an error?
-    // You can't technically remove something if it isn't there...
+    // Remove something that isn't there/makes this an empty set, so return an empty set
     public FiniteSet remove(int x) {
-            
+            return this;
     }
 
     // Call this function on an empty set, and takes in another FiniteSet called u- this should just
