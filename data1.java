@@ -151,9 +151,15 @@ public interface FiniteSet {
            return new NonEmptySet(x, toLeft, toRight);
     }
    
-   // not sure yet
+   // recursively checks the set until x has been found, and then returns 
+   // the union of whatever is to the left and to the right of x...
     public FiniteSet remove(int x) {
-
+        if(x == this.loc)
+            return toLeft.union(toRight);
+        else if(x > this.loc)
+            return new NonEmptySet(loc, toLeft, toRight.remove(x))
+        else /* if x is less than this.loc */
+            return new NonEmptySet(loc, toLeft.remove(x), toRight;
     }
 
    // not sure yet
