@@ -162,9 +162,12 @@ public interface FiniteSet {
             return new NonEmptySet(loc, toLeft.remove(x), toRight;
     }
 
-   // not sure yet
+   // Recursively called on the left part of the set it's being called, with the right side as input. It recursively 
+   // walks through the set it's being called on, essentially creating a new set each time- but, more importantly,
+   // it gives a new value for loc with each recursion. Union is called on this "changing set," with u as an input,
+   // which recusievly walks through the whole set- this time adding the value of loc from the previous set.
     public FiniteSet union(FiniteSet u) {
-        
+        return toLeft.union(toRight).union(u).add(loc);
     }
     
    // not sure yet
