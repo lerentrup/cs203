@@ -65,25 +65,19 @@ public interface FiniteSet {
     }
 
     // Again, call this function on an empty set, and takes in another FiniteSet called u- this should always 
-    // return true, since the empty set is a subset of every set (or is this supposed to be checking for a proper subset??)
+    // return true, since the empty set is a subset of every set 
     public boolean subset(FiniteSet u) {
         return true;
-        // if it was checking for a proper subset, would look something like this:
-        // if(u.cardinality() == 0)
-        //  return false;
-        // else
-        //  return true;
-        // or should this be a separate function... properSubset?
     }
     
     // If two sets are equal, they should both be subsets of one another, so this method uses the subset call twice
     // Call this function on an empty set, and takes in another FiniteSet called u- it then checks if u is a subset
     // of the set being called, an if the set being called is a subset of u...
     public boolean equal(FiniteSet u) {
-        if(this.subset(u) == true && u.subset(this) == true);
+        if(this.subset(u) == true && u.subset(this) == true)
             return false;
-                else
-                return true
+        else
+            return true;
             
     }
     // ToString method just for testing- just returns an empty string to represent the empty set
@@ -214,21 +208,191 @@ public interface FiniteSet {
  
    // toString function for testing...
     public String toString() {
-        return Integer.toString(this.loc) + " " + this.toLeft + " " + this.toRight;
+        return this.toLeft + Integer.toString(this.loc) + " " + this.toRight;
     }
            
 }
+
+
+// seperate class for running tests
+public class test{
   public static void main(String[] args){
         
+        // method that runs tests on empty sets
+      public static void emptySetTests(FiniteSet u){
+        
+       int rand =(int) (1000*Math.random());
+       
+       System.out.println("TESTS ON AN EMPTY SET...");
+       System.out.println("-----------------------------------------------------------");
+       System.out.println("EMPTY SET CARDINALITY: " + u.cardinality() + " (SHOULD BE 0)");
+       System.out.println("IS EMPTY SET EMPTY: " + u.isEmptyHuh() + " (SHOULD BE TRUE)");
+       System.out.println("CHECK IF RANDOM INTEGER " + rand + " IS MEMBER: " + u.member(rand) + " (SHOULD BE FALSE)");
+       System.out.println("ADDING RANDOM INTEGER: " + rand + "...");
+       u = u.add(rand);
+       System.out.println("NEW SET CARDINALITY: " + u.cardinality() + " (SHOULD BE 1)");
+       System.out.println("IS NEW SET EMPTY: " + u.isEmptyHuh() + " (SHOULD BE FALSE)");
+       System.out.println("CHECK IF RANDOM INTEGER " + rand + " IS MEMBER: " + u.member(rand) + " (SHOULD BE TRUE)");
+       System.out.println("-----------------------------------------------------------");
+        
+    }
+    
+    // method to generate a random set of length n
+       public static FiniteSet genSet(int n){
+       
+        FiniteSet testSet2 = new EmptySet();
+        
+        for(int x = 1; x <= n; x++){
+            int rand = (int) (100*Math.random());
+                  while(testSet2.member(rand)){
+                        rand =(int) (100*Math.random());}
+              testSet2 = testSet2.add(rand);}        
+        return testSet2;}
+       
+       // static method that tests two given tests, testSet1 and testSet2
+        public static void runPredictedTests(FiniteSet u, FiniteSet v){
+           System.out.println("TESTS ON TESTSET1 and TESTSET2...");
+           System.out.println("-----------------------------------------------------------");
+           System.out.println("SET 1: " + u.toString() + " (LENGTH: " + u.cardinality() + ")");
+           System.out.println("SHOULD BE: 1 2 3 4 5 6 7 8 10, LENGTH: 10");
+           System.out.println("SET 2: " + v.toString() + " (LENGTH: " + u.cardinality() + ")");
+           System.out.println("SHOULD BE: 5 6 7 8 9 10 11 12 13 14 15, LENGTH: 10");
+           System.out.println("ARE SETS EQUAL? " + v.equal(u));
+           System.out.println("SHOULD BE FALSE");
+           System.out.println("UNION: " + u.union(v).toString());
+           System.out.println("SHOULD BE: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15");
+           System.out.println("1 TO 2 DIFFERENCE: " + u.diff(v).toString());
+           System.out.println("SHOULD BE: 11 12 13 14 15");
+           System.out.println("2 TO 1 DIFFERENCE: " + v.diff(u).toString());
+           System.out.println("SHOULD BE: 1 2 3 4");
+           System.out.println("INTERSECTION: " + u.inter(v).toString());
+           System.out.println("SHOULD BE: 5 6 7 8 9 10");
+           System.out.println("IS 1 SUBSET OF 2? " + u.subset(v));
+           System.out.println("SHOULD BE FALSE");
+           System.out.println("IS 2 SUBSET OF 1? " + v.subset(u));
+           System.out.println("SHOULD BE FALSE");
+           System.out.println("-----------------------------------------------------------");
+       }
+       
+       // static method that tests two sets: the primes from 3 to 17 and the odd numbers from 1 to 19
+       public static void runSecondPredictedTests(){
+           
+           FiniteSet u = new EmptySet();
+           u = u.add(3);
+           u = u.add(5);
+           u = u.add(7);
+           u = u.add(11);
+           u = u.add(13);
+           u = u.add(17);
+                    
+           FiniteSet v = new EmptySet();
+           v = v.add(1);
+           v = v.add(2);
+           v = v.add(3);
+           v = v.add(5);
+           v = v.add(7);
+           v = v.add(9);
+           v = v.add(11);
+           v = v.add(13);
+           v = v.add(15);
+           v = v.add(17);
+           v = v.add(19);
+         
+           System.out.println("TESTS ON PRIME SET and ODD SET...");
+           System.out.println("-----------------------------------------------------------");
+           System.out.println("SET 1: " + u.toString() + " (LENGTH: " + u.cardinality() + ")");
+           System.out.println("SHOULD BE: 3 5 7 11 13 17, LENGTH: 6");
+           System.out.println("SET 2: " + v.toString() + " (LENGTH: " + v.cardinality() + ")");
+           System.out.println("SHOULD BE: 1 2 3 5 6 7 9 11 13 15 17 19, LENGTH: 11");
+           System.out.println("ARE SETS EQUAL? " + v.equal(u));
+           System.out.println("SHOULD BE FALSE");
+           System.out.println("UNION: " + u.union(v).toString());
+           System.out.println("SHOULD BE: 1 2 3 5 6 7 9 11 13 15 17 19");
+           System.out.println("1 TO 2 DIFFERENCE: " + u.diff(v).toString());
+           System.out.println("SHOULD BE: 1 2 9 15 19");
+           System.out.println("2 TO 1 DIFFERENCE: " + v.diff(u).toString());
+           System.out.println("SHOULD BE EMPTY");
+           System.out.println("INTERSECTION: " + u.inter(v).toString());
+           System.out.println("SHOULD BE: 1 3 5 7 11 13 17");
+           System.out.println("IS 1 SUBSET OF 2? " + u.subset(v));
+           System.out.println("SHOULD BE TRUE");
+           System.out.println("IS 2 SUBSET OF 1? " + v.subset(u));
+           System.out.println("SHOULD BE FALSE");
+           System.out.println("-----------------------------------------------------------");
+       } 
+       
+       // static method that runs tests on two inputted sets
+       public static void runTests(FiniteSet u, FiniteSet v){
+           System.out.println("TESTS ON TWO INPUTTED SESTS...");
+           System.out.println("-----------------------------------------------------------");
+           System.out.println("SET 1: " + u.toString() + " (LENGTH: " + u.cardinality() + ")");
+           System.out.println("SET 2: " + v.toString() + " (LENGTH: " + u.cardinality() + ")");
+           System.out.println("ARE SETS EQUAL? " + v.equal(u));
+           System.out.println("UNION: " + u.union(v).toString());
+           System.out.println("1 TO 2 DIFFERENCE: " + u.diff(v).toString());
+           System.out.println("2 TO 1 DIFFERENCE: " + v.diff(u).toString());
+           System.out.println("INTERSECTION: " + u.inter(v).toString());
+           System.out.println("IS 1 SUBSET OF 2? " + u.subset(v));
+           System.out.println("IS 2 SUBSET OF 1? " + v.subset(u));
+           System.out.println("-----------------------------------------------------------");
+       }
+       
+       // static method that tests two random sets, each of length n    
+       public static void runTestsOnRandomSets(int n){
+       
+           FiniteSet u = genSet(n);
+           FiniteSet v = genSet(n);
+           System.out.println("TESTS ON TWO RANDOM SETS...");
+           System.out.println("-----------------------------------------------------------");
+           System.out.println("SET 1: " + u.toString());
+           System.out.println("SET 2: " + v.toString());
+           System.out.println("UNION: " + u.union(v).toString());
+           System.out.println("1 TO 2 DIFFERENCE: " + u.diff(v).toString());
+           System.out.println("2 TO 1 DIFFERENCE: " + v.diff(u).toString());
+           System.out.println("INTERSECTION: " + u.inter(v).toString());
+           System.out.println("IS 1 SUBSET OF 2: " + u.subset(v));
+           System.out.println("IS 2 SUBSET OF 1: " + v.subset(u));
+           System.out.println("-----------------------------------------------------------");
+       }
+       
+          
+    public static void main(String[] args){
+        
+  
        FiniteSet testSet0;
        FiniteSet testSet1;
+       FiniteSet testSet2;
+   
        
        testSet0 = new EmptySet();
-       System.out.println(testSet0.cardinality());
-       System.out.println(testSet0.isEmptyHuh());
-       System.out.println(testSet0.member(1));
-       
+       emptySetTests(testSet0);
+       System.out.println();
+        
        testSet1 = new EmptySet(); 
        for(int x = 1; x <= 10; x = x + 1)
            testSet1 = testSet1.add(x);
+       
+         testSet2 = new EmptySet(); 
+       for(int x = 5; x <= 15; x = x + 1)
+           testSet2 = testSet2.add(x);
+       
+     
+       runPredictedTests(testSet1, testSet2);
+       System.out.println();
+       
+       FiniteSet newTestSet = genSet(15);
+       FiniteSet newTestSet1 = genSet(15);
+                
+       runTests(newTestSet, newTestSet1);
+        System.out.println();
+       
+       runTestsOnRandomSets(5);
+        System.out.println();
+       
+       runTestsOnRandomSets(10);
+        System.out.println();
+       
+       runTestsOnRandomSets(20);
+         System.out.println();
     
+}
