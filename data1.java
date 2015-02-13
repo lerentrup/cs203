@@ -105,10 +105,11 @@ public interface FiniteSet {
         this.toRight = toRight;
     }
     
-   // Not so sure about this one yet- probably should recursively walk through the set until the cardinality
-   // is 0 (i.e. the toLeft and toRight sets are empty...). The cardinality should be at least 1 though...
+   // The "base cardinality" is 1 (if it were less, i.e. 0, it would be an empty set), which is added onto the 
+   // recursive call of the function onto the left of the function (which should run until cardinality = 0) and
+   // then onto the recursive call onto the right side.
    public int cardinality(){
-       return 1;
+       return 1 + toLeft.cardinality() + toRight.cardinality();
    }
     
    // A finite set is never empty, so the isEmptyHuh call always returns false 
