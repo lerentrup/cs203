@@ -171,9 +171,15 @@ public interface FiniteSet {
         return toLeft.union(toRight).union(u).add(loc);
     }
     
-   // not sure yet
+   // Checks if loc is a member of u (in which case it will be a member of the intersection set). If this is true,
+   // it creates a new non empty set that recursively calls the constructor with loc, and the recursive calls on 
+   // the left and right sides of the set it's being called on (with u as the input). Otherwise it recursively calls 
+   // function on the rest of the function it's being called on, with loc removed (and u as input)
     public FiniteSet inter(FiniteSet u) {
- 
+        if(u.member(loc)){
+            return new NonEmptySet(loc, toLeft.inter(u), toRight.inter(u));
+        } else{
+            return this.remove(loc).inter(u);
     }
 
   // not sure yet
