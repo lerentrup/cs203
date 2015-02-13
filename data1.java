@@ -182,9 +182,11 @@ public interface FiniteSet {
             return this.remove(loc).inter(u);
     }
 
-  // not sure yet
+  // Walks the the set (via the union function, applied to the left and right side of the set the function is 
+  // being called on), by recursively calling the diff function on this set and removing loc each time (this leaves
+  // the set u with every instance of loc- i.e. every element of the set it's being called on- removed)
     public FiniteSet diff(FiniteSet u) {
-       
+       return toLeft.union(toRight).diff(u).remove(loc);
     }
 
     // Called on a non empty set, with another finite set ("u") as an input. It checks if loc (from the set that the 
